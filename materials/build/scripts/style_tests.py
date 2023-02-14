@@ -8,16 +8,19 @@ devnull_stderr = sys.stdout
 devnull_stdout = sys.stdout
 
 
-def get_source_filenames():
-    files_cat = os.listdir(PATH_TO_PROJECT + '/src/cat')
-    files_grep = os.listdir(PATH_TO_PROJECT + '/src/grep')
-    arr_of_files = []
-    for file in files_cat:
-        if file.find('.') != -1 and file[(file.find('.') + 1):] == 'c':
-            arr_of_files.append('cat/' + file)
-    for file in files_grep:
-        if file.find('.') != -1 and file[(file.find('.') + 1):] == 'c':
-            arr_of_files.append('grep/' + file)
+def get_source_filenames(arr_of_files=None, depth=0, path=PATH_TO_PROJECT + '/src'):
+    if arr_of_files is None:
+        arr_of_files = []
+
+    if depth == 3:
+        return
+    
+    for file in os.listdir(path):
+        new_path = os.path.join(path, file)
+        if os.path.isdir(new_path):
+            get_source_filenames(arr_of_files, depth + 1, new_path)
+        elif file[file.find('.') + 1 : len(file)] == 'c':
+            arr_of_files.append(new_path)
 
     return arr_of_files
 
@@ -36,7 +39,7 @@ def style_test_result(arr_of_files):
 
     for i in range(len(arr_of_files)):
         result_style_test = subprocess.run(
-            ['clang-format', '-n', PATH_TO_PROJECT + '/src/' + arr_of_files[i]],
+            ['clang-format', '-n', arr_of_files[i]],
             stderr=subprocess.STDOUT, stdout=subprocess.PIPE, text=True)
 
         if len(result_style_test.stdout) != 0:
