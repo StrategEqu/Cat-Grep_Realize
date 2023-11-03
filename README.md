@@ -148,6 +148,6 @@ Bonus assignment for extra points. You need to develop the grep utility:
 
 
 
-💡 [Tap here](https://forms.yandex.ru/cloud/64144c1bc09c020aafe7a4f3/) **to leave your feedback on the project**. Pedago Team really tries to make your educational experience better.
+💡 [Tap here](https://forms.yandex.ru/cloud/64144c1bc09c020aafe7a4f3/) **to leave your feedback on the project**. Product Team really tries to make your educational experience better.
 
 
