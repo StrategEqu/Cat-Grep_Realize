@@ -24,8 +24,7 @@ The russian version of the task can be found in the repository.
 
 It was an ordinary grey autumn day in 1993. You came home from work at Hewlett-Packard, feeling a little tired. You had a small two-room apartment on the outskirts of N town. There was a low-alcohol drink in the refrigerator called "pivo". You took that drink and a bag of crackers then went to your little nook, to your computer made by Dell.
 
-`*Click*` - the power button was pressed. A couple of minutes of boot loading and... yeah, it feels good. You always get that feeling when you turn on a computer. A few seconds of undisturbed pleasure and you opened
-the Mosaic browser. Then you went to your favorite forum, and while drinking pivo, you read some threads. Suddenly you came across a very interesting discussion, which began with the following message:
+`*Click*` - the power button was pressed. A couple of minutes of boot loading and... yeah, it feels good. You always get that feeling when you turn on a computer. A few seconds of undisturbed pleasure and you opened the Mosaic browser. Then you went to your favorite forum, and while drinking pivo, you read some threads. Suddenly you came across a very interesting discussion, which began with the following message:
 
 > Hello everybody out there using minix -
 >
