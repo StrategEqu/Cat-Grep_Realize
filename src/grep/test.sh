@@ -3,11 +3,10 @@ MENU='\e[33m'
 RESET='\033[0m'
 FAILURE='\033[0;31m'
 
-file="test2.txt"
+file="test1.txt"
 compile="s21_grep"
-flags=("-e" "-s" "-T" "-E" "-b" "-n" "-t" "--number" 
-"--number-nonblank" "--squeeze-blank" "--show-ends" "--show-tabs")
-
+flags=("-v" "-i" "-o" "-l" "-n" "-c" "-e" "-f" "-s" "-h")
+# "-v" "-i" "-o" "-l" "-n" "-c" "-e" "-f" "-s" "-h"
     # Перебираем флаги
     for flag in "${flags[@]}"
     do
@@ -24,9 +23,9 @@ flags=("-e" "-s" "-T" "-E" "-b" "-n" "-t" "--number"
         fi    
 
         # Запускаем программу с флагами и файлами и сохраняем вывод в файл
-        ./s21_cat "$flag" "$file" > "output_$flag_$file.txt"
+        ./s21_grep "$flag" "^8" "$file" > "output_$flag_$file.txt"
         # Запускаем команду cat с флагами и файлами и сохраняем вывод в файл
-        cat "$flag" "$file" > "output2_$flag_$file.txt"
+        grep "$flag" "^8" "$file" > "output2_$flag_$file.txt"
 
         # Сравниваем вывод программы с ожидаемым выводом
         diff "output_$flag_$file.txt" "output2_$flag_$file.txt"
