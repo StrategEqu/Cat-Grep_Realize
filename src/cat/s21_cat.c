@@ -1,10 +1,9 @@
 #include "s21_cat.h"
 
 int main(int argc, char* argv[]) {
-  int init = 0;
   int flags_num = 0;
   for (int i = 1; i < argc; i++) {
-    init = getFlags(argc, argv);
+    int init = getFlags(argc, argv);
     if (init == -1) {
     } else if (init == '?') {
       exit(0);
@@ -67,7 +66,7 @@ void open_file(char* argv[]) {
 void print_file(FILE* file) {
   int count_line = 1;
   int empty_lines = 0;
-  int ch = '\0';
+  int ch;
   int last = '\n';
   int counter_for_b = 0;
   while ((ch = fgetc(file)) != EOF) {

@@ -1,5 +1,4 @@
 SUCCESS='\e[32m'
-MENU='\e[33m'
 RESET='\033[0m'
 FAILURE='\033[0;31m'
 
