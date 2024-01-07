@@ -1,5 +1,6 @@
 CC			:= gcc
 NAME		:= s21_grep
+SH_NAME		:= test.sh
 SRC			:= $(NAME).c
 HEADER		:= $(NAME).h
 
@@ -24,6 +25,7 @@ info:
 		@echo "  style:    style analysis"
 		@echo "  clean:    remove all generated files"
 		@echo "  test:     run the functional test of the programm"
+		@echo "  check_script:		formatting and improving the script"
 
 s21_grep: $(SRC) $(HEADER)
 	$(CC) $(CFLAGS) $(SRC) -o $(NAME)		
@@ -36,6 +38,9 @@ style: $(NAME)
 	clang-format -style=Google -n *.c *.h
 test: $(NAME)
 	bash test.sh
+check_script:
+	shfmt -w $(SH_NAME)
+	shellcheck $(SH_NAME)
 clean:
 	rm -rf *.o *.a
 	rm -f $(NAME) *.o
