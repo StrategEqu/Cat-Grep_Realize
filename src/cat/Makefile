@@ -4,9 +4,9 @@ SRC			:= $(NAME).c
 HEADER		:= $(NAME).h
 
 MODE?=1
-ifeq ($(MODE), 2)
 #LFLAGS - содержит флаги оптимизации для компоновщика
 #CFLAGS - содержит флаги оптимизации для компилятора
+ifeq ($(MODE), 2)
 	LFLAGS=-g -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector -fanalyzer
 	CFLAGS=-Wall -Werror -Wextra -g -O2 -pedantic -std=c11 -Wshadow -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-align -Wfloat-equal -Wconversion -Wcast-qual -Wformat=2 -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector -fanalyzer
 else
