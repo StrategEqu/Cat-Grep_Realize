@@ -12,12 +12,12 @@ flags=("-e" "-s" "-T" "-E" "-b" "-n" "-t" "--number"
 for flag in "${flags[@]}"; do
 	# Проверяем наличие скомпилированного файла
 	if [[ ! -f "$compile" ]]; then
-		echo "Файл $compile не существует."
+		echo "$compile file does not exist."
 		exit 1
 	fi
 	# Проверяем наличие файлов и удаляем временные файлы, если false
 	if [[ ! -f "$file" ]]; then
-		echo "Файл $file не существует."
+		echo "$file file does not exist."
 		rm "output_${flag}_${file}.txt" "output2_${flag}_${file}.txt"
 		exit 1
 	fi
@@ -29,9 +29,9 @@ for flag in "${flags[@]}"; do
 
 	# Сравниваем вывод программы с ожидаемым выводом
 	if diff "output_${flag}_${file}.txt" "output2_${flag}_${file}.txt"; then
-		echo -e "${SUCCESS}[SUCCESS]${RESET} Команды идентичны для флага $flag и файла $file."
+		echo -e "${SUCCESS}[SUCCESS]${RESET} The commands are identical for the $flag flag, the $file file."
 	else
-		echo -e "${FAILURE}[FAIL]${RESET} Команды отличаются для флага $flag и файла $file."
+		echo -e "${FAILURE}[FAIL]${RESET} The commands are different for the $flag flag, the $file file."
 	fi
 
 	# Удаляем временные файлы

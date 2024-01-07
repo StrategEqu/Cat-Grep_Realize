@@ -12,12 +12,12 @@ flags=("-v" "-i" "-o" "-l" "-n" "-c" "-e" "-f" "-s" "-h")
 for flag in "${flags[@]}"; do
 	# Проверяем наличие скомпилированного файла
 	if [[ ! -f "$compile" ]]; then
-		echo "Файл $compile не существует."
+		echo "$compile file does not exist."
 		exit 1
 	fi
 	# Проверяем наличие файлов и удаляем временные файлы, если false
 	if [[ ! -f "$file" ]]; then
-		echo "Файл $file не существует."
+		echo "$file file does not exist."
 		rm "output_${flag}_${file}.txt" "output2_${flag}_${file}.txt"
 		exit 1
 	fi
@@ -29,9 +29,9 @@ for flag in "${flags[@]}"; do
 
 	# Сравниваем вывод программы с ожидаемым выводом
 	if diff "output_${flag}_${file}.txt" "output2_${flag}_${file}.txt"; then
-		echo -e "${SUCCESS}[SUCCESS]${RESET} Команды идентичны для флага $flag и файла $file."
+		echo -e "${SUCCESS}[SUCCESS]${RESET} The commands are identical for the $flag flag, the $file file, and the $pattern pattern."
 	else
-		echo -e "${FAILURE}[FAIL]${RESET} Команды отличаются для флага $flag и файла $file."
+		echo -e "${FAILURE}[FAIL]${RESET} The commands are different for the $flag flag, the $file file, and the $pattern pattern."
 	fi
 
 	# Удаляем временные файлы
@@ -50,9 +50,9 @@ for ((i = 0; i < ${#flags[@]}; i++)); do
 		grep "$flag1" "$pattern" "$file" >"output2_${flag1}_${flag2}_${file}.txt"
 
 		if diff "output_${flag1}_${flag2}_${file}.txt" "output2_${flag1}_${flag2}_${file}.txt"; then
-			echo -e "${SUCCESS}[SUCCESS]${RESET} Команды идентичны для флагов $flag1 и $flag2 и файла $file."
+			echo -e "${SUCCESS}[SUCCESS]${RESET} The commands are identical for the $flag1 and $flag2 flags, the $file file and the $pattern pattern"
 		else
-			echo -e "${FAILURE}[FAIL]${RESET} Команды отличаются для флагов $flag1 и $flag2 и файла $file."
+			echo -e "${FAILURE}[FAIL]${RESET} The commands differ for the $flag1 and $flag2 flags, the $file file and the $pattern pattern"
 		fi
 
 		rm "output_${flag1}_${flag2}_${file}.txt" "output2_${flag1}_${flag2}_${file}.txt"
