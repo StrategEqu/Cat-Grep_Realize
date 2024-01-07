@@ -33,7 +33,7 @@ check: $(NAME)
 leak: $(NAME)
 	valgrind --tool=memcheck --leak-check=yes ./$(NAME)
 style: $(NAME)
-	clang-format -n *.c *.h
+	clang-format -style=Google -n *.c *.h
 test: $(NAME)
 	bash test.sh
 clean:

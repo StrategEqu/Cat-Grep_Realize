@@ -4,10 +4,10 @@ int main(int argc, char **argv) {
   int errcode = NO_MATCHES_FOUND;
 
   if (argc > 2) {
-    Options options = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    Options options = {0};
     char pattern[SIZE] = {0};
     int options_sh = 0;
-    char *options_str = "lnvioce:f:sh?";
+    char *options_str = "lnvoice:f:sh?";
 
     while (-1 != (options_sh = getopt_long(argc, argv, options_str, 0, NULL))) {
       errcode = init_struct(&options, options_sh, pattern);
