@@ -19,13 +19,13 @@ all: $(NAME)
 
 info:
 		@echo "Available make targets:"
-		@echo "  $(NAME):					create the executable file $(NAME)"
-		@echo "  leak:						memory leak check"
-		@echo "  check:						error analysis"
-		@echo "  style:						style analysis"
-		@echo "  clean:						remove all generated files"
-		@echo "  test:						run the functional test of the programm"
-		@echo "  check_script:				formatting and improving the script"
+		@echo "  $(NAME):				create the executable file $(NAME)"
+		@echo "  leak:					memory leak check"
+		@echo "  check:					error analysis"
+		@echo "  style:					style analysis"
+		@echo "  clean:					remove all generated files"
+		@echo "  test:					run the functional test of the programm"
+		@echo "  check_script:			formatting and improving the script"
 
 s21_grep: $(SRC) $(HEADER)
 	$(CC) $(CFLAGS) $(SRC) -o $(NAME)		
