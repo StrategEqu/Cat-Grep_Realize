@@ -3,7 +3,7 @@ SUCCESS='\e[32m'
 RESET='\033[0m'
 FAILURE='\033[0;31m'
 
-file="test2.txt"
+file="test1.txt"
 compile="s21_cat"
 flags=("-e" "-s" "-T" "-E" "-b" "-n" "-t" "--number"
 	"--number-nonblank" "--squeeze-blank" "--show-ends" "--show-tabs")
