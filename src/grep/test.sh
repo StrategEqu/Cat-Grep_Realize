@@ -8,7 +8,7 @@ pattern="pattern.txt"
 compile="s21_grep"
 flags=("-v" "-i" "-o" "-l" "-n" "-c" "-e" "-f" "-s" "-h")
 
-# Перебираем флаги
+# Перебираем одиночные флаги
 for flag in "${flags[@]}"; do
 	# Проверяем наличие скомпилированного файла
 	if [[ ! -f "$compile" ]]; then
@@ -38,11 +38,10 @@ for flag in "${flags[@]}"; do
 	rm "output_${flag}_${file}.txt" "output2_${flag}_${file}.txt"
 done
 
-# Перебираем первый флаг
+# Перебираем парные флаги
 for ((i = 0; i < ${#flags[@]}; i++)); do
 	flag1=${flags[i]}
 
-	# Перебираем второй флаг
 	for ((j = i + 1; j < ${#flags[@]}; j++)); do
 		flag2=${flags[j]}
 

@@ -1,7 +1,7 @@
 #include "s21_grep.h"
 
 int main(int argc, char **argv) {
-  int errcode = NO_MATCHES_FOUND;
+  int error_code = NO_MATCHES_FOUND;
 
   if (argc > 2) {
     Options options = {0};
@@ -10,20 +10,20 @@ int main(int argc, char **argv) {
     char *options_str = "lnvoice:f:sh?";
 
     while (-1 != (options_sh = getopt_long(argc, argv, options_str, 0, NULL))) {
-      errcode = init_struct(&options, options_sh, pattern);
+      error_code = init_struct(&options, options_sh, pattern);
     }
     if ((options.e || options.f) & (argc < 4)) {
-      errcode = ERROR;
+      error_code = ERROR;
     }
-    if (ERROR != errcode) {
-      executor((const char **)argv, pattern, &options);
+    if (error_code != ERROR) {
+      performer((const char **)argv, pattern, &options);
     }
   }
-  return errcode;
+  return error_code;
 }
 
 int init_struct(Options *options, int symbol, char *pattern) {
-  int errcode = OK;
+  int error_code = OK;
 
   switch (symbol) {
     case 'v':
@@ -50,7 +50,7 @@ int init_struct(Options *options, int symbol, char *pattern) {
       break;
     case 'f':
       options->f = SET;
-      errcode = f_handler(pattern);
+      error_code = f_handler(pattern);
       break;
     case 's':
       options->s = SET;
@@ -59,13 +59,13 @@ int init_struct(Options *options, int symbol, char *pattern) {
       options->h = SET;
       break;
     case '?':
-      errcode = ERROR;
+      error_code = ERROR;
   }
-  return errcode;
+  return error_code;
 }
 
-int executor(const char **argv, const char *pattern, Options const *options) {
-  int errcode = NO_MATCHES_FOUND;
+int performer(const char **argv, const char *pattern, Options const *options) {
+  int error_code = NO_MATCHES_FOUND;
   int num_files = 0;
   int flag_no_pattern_opt = CLEAR;
 
@@ -77,10 +77,10 @@ int executor(const char **argv, const char *pattern, Options const *options) {
     num_files = file_counter(argv, flag_no_pattern_opt);
   }
 
-  errcode =
+  error_code =
       file_handler(argv, pattern, num_files, flag_no_pattern_opt, options);
 
-  return errcode;
+  return error_code;
 }
 
 int file_counter(const char **argv, int flag_no_pattern_opt) {
@@ -100,7 +100,7 @@ int file_counter(const char **argv, int flag_no_pattern_opt) {
 
 int file_handler(const char **argv, const char *pattern, int num_files,
                  int flag_no_pattern_opt, Options const *options) {
-  int errcode = NO_MATCHES_FOUND;
+  int error_code = NO_MATCHES_FOUND;
 
   for (int index_loop = 0; index_loop < num_files; ++index_loop) {
     FILE *file_ptr;
@@ -111,7 +111,7 @@ int file_handler(const char **argv, const char *pattern, int num_files,
       if (!options->s) {
         fprintf(stderr, "s21_grep: %s: %s\n", file_name, strerror(2));
       }
-      errcode = ERROR;
+      error_code = ERROR;
     } else {
       char opt_l_handling_is = CLEAR;
       regex_t preg;
@@ -124,9 +124,9 @@ int file_handler(const char **argv, const char *pattern, int num_files,
 
         regerror(regcode, &preg, reg_errbuf, LITTLE_SIZE);
         fprintf(stderr, "Regexp compilation failed: '%s'\n", reg_errbuf);
-        errcode = ERROR;
+        error_code = ERROR;
       }
-      if (ERROR != errcode) {
+      if (ERROR != error_code) {
         char buf_str[SIZE] = {0};
         for (int num_str = 1; NULL != fgets(buf_str, SIZE, file_ptr);
              ++num_str) {
@@ -138,31 +138,31 @@ int file_handler(const char **argv, const char *pattern, int num_files,
             if (options->l) {
               opt_l_handling_is = SET;
             } else {
-              errcode = opt_handler(file_name, num_files, num_str, buf_str,
-                                    pattern, options);
+              error_code = opt_handler(file_name, num_files, num_str, buf_str,
+                                       pattern, options);
             }
           }
         }
       }
 
       if (options->c) {
-        errcode =
+        error_code =
             c_handler(options, num_files, file_name, num_matching_strings);
       }
       if (opt_l_handling_is == SET) {
         printf("%s\n", file_name);
-        errcode = OK;
+        error_code = OK;
       }
       regfree(&preg);
       fclose(file_ptr);
     }
   }
-  return errcode;
+  return error_code;
 }
 
 int opt_handler(const char *file_name, int num_files, int num_str,
                 char *buf_str, const char *pattern, Options const *options) {
-  int errcode = NO_MATCHES_FOUND;
+  int error_code = NO_MATCHES_FOUND;
 
   if (!options->c) {
     if (num_files > 1 && !options->h) {
@@ -173,10 +173,10 @@ int opt_handler(const char *file_name, int num_files, int num_str,
     }
 
     if (options->o && !options->v) {
-      errcode = o_handler(options, buf_str, pattern);
+      error_code = o_handler(options, buf_str, pattern);
     } else {
       fputs(buf_str, stdout);
-      errcode = OK;
+      error_code = OK;
     }
 
     if (!options->o) {
@@ -186,26 +186,26 @@ int opt_handler(const char *file_name, int num_files, int num_str,
       }
     }
   }
-  return errcode;
+  return error_code;
 }
 
 int c_handler(Options const *options, int num_files, const char *file_name,
               unsigned int num_matching_strings) {
-  int errcode = NO_MATCHES_FOUND;
+  int error_code = NO_MATCHES_FOUND;
 
   if ((num_files > 1) && !options->h) {
     printf("%s:%u\n", file_name, num_matching_strings);
-    errcode = OK;
+    error_code = OK;
   } else {
     printf("%u\n", num_matching_strings);
-    errcode = OK;
+    error_code = OK;
   }
 
-  return errcode;
+  return error_code;
 }
 
 int o_handler(Options const *options, char *buf_str, const char *pattern) {
-  int errcode = NO_MATCHES_FOUND;
+  int error_code = NO_MATCHES_FOUND;
   regex_t preg;
   int regcode = options->i ? regcomp(&preg, pattern, REG_ICASE)
                            : regcomp(&preg, pattern, REG_EXTENDED);
@@ -215,7 +215,7 @@ int o_handler(Options const *options, char *buf_str, const char *pattern) {
 
     regerror(regcode, &preg, reg_errbuf, LITTLE_SIZE);
     fprintf(stderr, "Regexp compilation failed: '%s'\n", reg_errbuf);
-    errcode = ERROR;
+    error_code = ERROR;
   }
 
   if (OK == regcode && !options->v) {
@@ -228,22 +228,22 @@ int o_handler(Options const *options, char *buf_str, const char *pattern) {
       }
       printf("%.*s\n", (int)(pmatch->rm_eo - pmatch->rm_so), s + pmatch->rm_so);
       s += pmatch->rm_eo;
-      errcode = OK;
+      error_code = OK;
     }
   }
   regfree(&preg);
-  return errcode;
+  return error_code;
 }
 
 int f_handler(char *pattern) {
-  int errcode = NO_MATCHES_FOUND;
+  int error_code = NO_MATCHES_FOUND;
 
   FILE *file_pattern_pointer;
   const char *file_name_pattern = optarg;
 
   if (NULL == (file_pattern_pointer = fopen(file_name_pattern, "r"))) {
     fprintf(stderr, "s21_grep: %s: %s\n", file_name_pattern, strerror(2));
-    errcode = ERROR;
+    error_code = ERROR;
   } else {
     char buf_str_pattern[SIZE] = {0};
 
@@ -260,7 +260,7 @@ int f_handler(char *pattern) {
     }
     fclose(file_pattern_pointer);
   }
-  return errcode;
+  return error_code;
 }
 
 void init_pattern(char *pattern, const char *string) {

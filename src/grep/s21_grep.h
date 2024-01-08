@@ -37,7 +37,7 @@ enum option_codes {
 
 void init_pattern(char *pattern, const char *src);
 int init_struct(Options *Opt, int symbol, char *pattern);
-int executor(const char **argv, const char *pattern, Options const *Opt);
+int performer(const char **argv, const char *pattern, Options const *Opt);
 int file_handler(const char **argv, const char *pattern, int num_files,
                  int flag_no_pattern_opt, Options const *Opt);
 int file_counter(const char **argv, int flag_no_pattern_opt);
