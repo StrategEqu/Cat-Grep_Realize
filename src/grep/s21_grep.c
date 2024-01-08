@@ -180,7 +180,7 @@ int opt_handler(const char *file_name, int num_files, int num_str,
     }
 
     if (!options->o) {
-      int n = strlen(buf_str);
+      size_t n = strlen(buf_str);
       if (buf_str[n] == '\0' && buf_str[n - 1] != '\n') {
         putchar('\n');
       }
