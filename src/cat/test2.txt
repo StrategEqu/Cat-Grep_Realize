@@ -1,7 +1,9 @@
-			Hello World!
+# Visual check of cat command for working with multiple files
 		
-😂
-п п ппп		
+This is line 1
+This is line 2
 
-	
-e45
+
+This is line 3
+Это строка 4
+	This is line 5
