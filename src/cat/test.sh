@@ -1,13 +1,17 @@
 #!/bin/bash
 SUCCESS='\e[32m'
-RESET='\033[0m'
 FAILURE='\033[0;31m'
+MENU='\e[33m'
+RESET='\033[0m'
 
 file="test1.txt"
 compile="s21_cat"
 flags=("-e" "-s" "-T" "-E" "-b" "-n" "-t" "--number"
 	"--number-nonblank" "--squeeze-blank" "--show-ends" "--show-tabs")
+success_count=0
+failure_count=0
 
+printf "${MENU}%s==============================================Compatibility_Test==============================================%s${RESET}\n"
 # Перебираем флаги
 for flag in "${flags[@]}"; do
 	# Проверяем наличие скомпилированного файла
@@ -30,10 +34,20 @@ for flag in "${flags[@]}"; do
 	# Сравниваем вывод программы с ожидаемым выводом
 	if diff "output_${flag}_${file}.txt" "output2_${flag}_${file}.txt"; then
 		echo -e "${SUCCESS}[SUCCESS]${RESET} The commands are identical for the $flag flag, the $file file."
+		((success_count++))
 	else
 		echo -e "${FAILURE}[FAIL]${RESET} The commands are different for the $flag flag, the $file file."
+		((failure_count++))
 	fi
 
 	# Удаляем временные файлы
 	rm "output_${flag}_${file}.txt" "output2_${flag}_${file}.txt"
 done
+
+printf "${MENU}%s--------------------------------------------------------------------------------------------------------------%s${RESET}\n"
+if [[ $failure_count == 0 ]]; then
+	echo -e "${SUCCESS}[SUCCESS]${RESET} Total successful comparisons: $success_count/$failure_count"
+else
+	echo -e "${FAILURE}[FAIL]${RESET} Total successful comparisons: $success_count/$failure_count"
+fi
+printf "${MENU}%s================================================Test_completed================================================%s${RESET}\n"
