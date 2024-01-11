@@ -5,6 +5,7 @@ Another line here.
 This line contains the word "apple".
 Another line with the word "banana".
 Line number seven.
+This is line Seven.
 The quick brown fox jumps over the lazy dog.
 This line has the word "cat" in it.
 The cat is sitting on the mat.

@@ -27,7 +27,7 @@ for flag in "${flags[@]}"; do
 	fi
 
 	# Сохраняем вывод программы и команды grep с флагами и файлами во временный файл
-	if [[ "$flag" == "-f" || "$flag" == "-e" ]]; then
+	if [[ "$flag" == "-f" ]]; then
 		"./$compile" "$flag" "$pattern" "$file" >"output_${flag}_${file}.txt"
 		grep "$flag" "$pattern" "$file" >"output2_${flag}_${file}.txt"
 	else
