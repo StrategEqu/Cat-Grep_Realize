@@ -25,13 +25,13 @@ all: $(NAME)
 
 info:
 	@echo "$(COLOR_BOLD)$(COLOR_YELLOW)Available make targets:$(COLOR_RESET)"
-	@echo "$(COLOR_BOLD)$(COLOR_MAGENTA)$(NAME):\t\t$(COLOR_CYAN)create the executable file $(NAME)$(COLOR_RESET)"
-	@echo "$(COLOR_BOLD)$(COLOR_MAGENTA)leak:$(COLOR_CYAN)\t\t\tmemory leak check$(COLOR_RESET)"
-	@echo "$(COLOR_BOLD)$(COLOR_MAGENTA)check:$(COLOR_CYAN)\t\t\tterror analysis$(COLOR_RESET)"
-	@echo "$(COLOR_BOLD)$(COLOR_MAGENTA)style:$(COLOR_CYAN)\t\t\tstyle analysis$(COLOR_RESET)"
-	@echo "$(COLOR_BOLD)$(COLOR_MAGENTA)clean:$(COLOR_CYAN)\t\t\tremove all generated files$(COLOR_RESET)"
-	@echo "$(COLOR_BOLD)$(COLOR_MAGENTA)test:$(COLOR_CYAN)\t\t\trun the functional test of the program$(COLOR_RESET)"
-	@echo "$(COLOR_BOLD)$(COLOR_MAGENTA)check_script:$(COLOR_CYAN)\t\tformatting and improving the script$(COLOR_RESET)"
+	@echo "$(COLOR_MAGENTA)$(NAME):\t\t$(COLOR_CYAN)create the executable file $(NAME)$(COLOR_RESET)"
+	@echo "$(COLOR_MAGENTA)leak:$(COLOR_CYAN)\t\t\tmemory leak check$(COLOR_RESET)"
+	@echo "$(COLOR_MAGENTA)check:$(COLOR_CYAN)\t\t\tterror analysis$(COLOR_RESET)"
+	@echo "$(COLOR_MAGENTA)style:$(COLOR_CYAN)\t\t\tstyle analysis$(COLOR_RESET)"
+	@echo "$(COLOR_MAGENTA)clean:$(COLOR_CYAN)\t\t\tremove all generated files$(COLOR_RESET)"
+	@echo "$(COLOR_MAGENTA)test:$(COLOR_CYAN)\t\t\trun the functional test of the program$(COLOR_RESET)"
+	@echo "$(COLOR_MAGENTA)check_script:$(COLOR_CYAN)\t\tformatting and improving the script$(COLOR_RESET)"
 
 s21_grep: $(SRC) $(HEADER)
 	$(CC) $(CFLAGS) $(SRC) -o $(NAME)		
