@@ -4,6 +4,12 @@ SH_NAME		:= test.sh
 SRC			:= $(NAME).c
 HEADER		:= $(NAME).h
 
+COLOR_BOLD := \033[1m
+COLOR_RESET := \033[0m
+COLOR_YELLOW := \033[33m
+COLOR_MAGENTA := \033[35m
+COLOR_CYAN := \033[36m
+
 MODE?=1
 #LFLAGS - содержит флаги оптимизации для компоновщика
 #CFLAGS - содержит флаги оптимизации для компилятора
@@ -18,14 +24,14 @@ endif
 all: $(NAME)
 
 info:
-	@echo "Available make targets:"
-	@echo "  $(NAME):\t\tcreate the executable file $(NAME)"
-	@echo "  leak:\t\t\tmemory leak check"
-	@echo "  check:\t\terror analysis"
-	@echo "  style:\t\tstyle analysis"
-	@echo "  clean:\t\tremove all generated files"
-	@echo "  test:\t\t\trun the functional test of the program"
-	@echo "  check_script:\t\tformatting and improving the script"
+	@echo "$(COLOR_BOLD)$(COLOR_YELLOW)Available make targets:$(COLOR_RESET)"
+	@echo "$(COLOR_BOLD)$(COLOR_MAGENTA)$(NAME):\t\t$(COLOR_CYAN)create the executable file $(NAME)$(COLOR_RESET)"
+	@echo "$(COLOR_BOLD)$(COLOR_MAGENTA)leak:$(COLOR_CYAN)\t\t\tmemory leak check$(COLOR_RESET)"
+	@echo "$(COLOR_BOLD)$(COLOR_MAGENTA)check:$(COLOR_CYAN)\t\t\tterror analysis$(COLOR_RESET)"
+	@echo "$(COLOR_BOLD)$(COLOR_MAGENTA)style:$(COLOR_CYAN)\t\t\tstyle analysis$(COLOR_RESET)"
+	@echo "$(COLOR_BOLD)$(COLOR_MAGENTA)clean:$(COLOR_CYAN)\t\t\tremove all generated files$(COLOR_RESET)"
+	@echo "$(COLOR_BOLD)$(COLOR_MAGENTA)test:$(COLOR_CYAN)\t\t\trun the functional test of the program$(COLOR_RESET)"
+	@echo "$(COLOR_BOLD)$(COLOR_MAGENTA)check_script:$(COLOR_CYAN)\t\tformatting and improving the script$(COLOR_RESET)"
 
 s21_cat: $(SRC) $(HEADER)
 	$(CC) $(CFLAGS) $(SRC) -o $(NAME)		
