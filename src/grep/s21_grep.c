@@ -117,7 +117,7 @@ int file_handler(const char **argv, const char *pattern, int num_files,
 
     if (NULL == (file_ptr = fopen(file_name, "r"))) {
       if (options->s) {
-        printf("s21_grep: %s: No such file or directory\n", file_name);
+        fprintf(stderr, "s21_grep: %s: %s\n", file_name, strerror(2));
         error_code = ERROR;
       }
     } else {
@@ -229,19 +229,22 @@ int o_handler(Options const *options, char *buf_str, const char *pattern) {
   if (regcode == OK && !options->v) {
     regmatch_t pmatch[SIZE];
 
-    for (char *s = buf_str; *s != '\0'; ++s) {
+    for (char *s = buf_str; *s != '\0';) {
       if (regexec(&preg, s, 1, pmatch, 0) != 0) {
         break;
       }
       printf("%.*s\n", (int)(pmatch->rm_eo - pmatch->rm_so), s + pmatch->rm_so);
       s += pmatch->rm_eo;
+      if (pmatch->rm_eo == pmatch->rm_so) {
+        ++s;  // Increment s if the match is zero-length to avoid an infinite
+              // loop
+      }
       error_code = OK;
     }
   }
   regfree(&preg);
   return error_code;
 }
-
 //Обрабатывает файлы, содержащие паттерны при запуске программы с опцией '-f' и
 //заполняет pattern
 int f_handler(char *pattern) {
@@ -251,7 +254,7 @@ int f_handler(char *pattern) {
   const char *file_name_pattern = optarg;
 
   if (NULL == (file_pattern_pointer = fopen(file_name_pattern, "r"))) {
-    printf("s21_grep: %s: No such file or directory\n", file_name_pattern);
+    fprintf(stderr, "s21_grep: %s: %s\n", file_name_pattern, strerror(2));
     error_code = ERROR;
   } else {
     char buf_str_pattern[SIZE] = {0};
