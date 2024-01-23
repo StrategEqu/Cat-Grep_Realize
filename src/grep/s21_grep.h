@@ -8,7 +8,7 @@
 #include <string.h>
 
 #define SIZE 1024
-#define LITTLE_SIZE 128
+#define REG_ERROR_BUF_SIZE 128
 
 typedef struct {
   char v;
@@ -32,7 +32,6 @@ enum error_codes {
 enum option_codes {
   CLEAR = 0,
   SET = 1,
-  HELP = 2,
 };
 
 void init_pattern(char *pattern, const char *src);

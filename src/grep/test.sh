@@ -37,10 +37,10 @@ for flag in "${flags[@]}"; do
 
 	# Сравниваем вывод программы с ожидаемым выводом
 	if diff "output_${flag}_${file}.txt" "output2_${flag}_${file}.txt"; then
-		echo -e "${SUCCESS}[SUCCESS]${RESET} The commands are identical for the $flag flag, the $file file, and the $pattern pattern."
+		# echo -e "${SUCCESS}[SUCCESS]${RESET} The commands are identical for the $flag flag, the $file file, and the $pattern pattern."
 		((success_count++))
 	else
-		echo -e "${FAILURE}[FAIL]${RESET} The commands are different for the $flag flag, the $file file, and the $pattern pattern."
+		# echo -e "${FAILURE}[FAIL]${RESET} The commands are different for the $flag flag, the $file file, and the $pattern pattern."
 		((failure_count++))
 	fi
 
@@ -59,10 +59,10 @@ for ((i = 0; i < ${#flags[@]}; i++)); do
 		grep "$flag1" "$pattern" "$file" >"output2_${flag1}_${flag2}_${file}.txt"
 
 		if diff "output_${flag1}_${flag2}_${file}.txt" "output2_${flag1}_${flag2}_${file}.txt"; then
-			echo -e "${SUCCESS}[SUCCESS]${RESET} The commands are identical for the $flag1 and $flag2 flags, the $file file, and the $pattern pattern."
+			# echo -e "${SUCCESS}[SUCCESS]${RESET} The commands are identical for the $flag1 and $flag2 flags, the $file file, and the $pattern pattern."
 			((success_count++))
 		else
-			echo -e "${FAILURE}[FAIL]${RESET} The commands differ for the $flag1 and $flag2 flags, the $file file, and the $pattern pattern."
+			# echo -e "${FAILURE}[FAIL]${RESET} The commands differ for the $flag1 and $flag2 flags, the $file file, and the $pattern pattern."
 			((failure_count++))
 		fi
 
@@ -70,7 +70,7 @@ for ((i = 0; i < ${#flags[@]}; i++)); do
 	done
 done
 
-printf "${MENU}%s--------------------------------------------------------------------------------------------------------------%s${RESET}\n"
+# printf "${MENU}%s--------------------------------------------------------------------------------------------------------------%s${RESET}\n"
 if [[ $failure_count == 0 ]]; then
 	echo -e "${SUCCESS}[SUCCESS]${RESET} Total successful comparisons: $success_count/$failure_count"
 else

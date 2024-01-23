@@ -5,11 +5,6 @@
 #ifndef CATINIT_H
 #define CATINIT_H
 
-int getFlags(int argc, char* argv[]);
-void open_file(char* argv[]);
-void print_file(FILE* file);
-void print_visible_character(int read_char);
-
 struct flag {
   short int b;
   short int e;
@@ -26,5 +21,10 @@ const struct option long_options[] = {
     {"show-ends", no_argument, NULL, 'E'},
     {"show-tabs", no_argument, NULL, 'T'},
     {NULL, 0, NULL, 0}};
+
+void initFlags(int argc, char** argv);
+void open_file(char* argv[]);
+void print_file(FILE* file, int* count_line, int* last);
+void print_visible_character(int ch);
 
 #endif
